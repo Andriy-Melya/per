@@ -27,4 +27,3 @@ class Settings:
         self.asteroid_allower = 8
 
         self.bals = 0
-        self.nam = 3
