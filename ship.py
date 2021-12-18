@@ -98,3 +98,4 @@ class Ship:
     def blitme(self):
         # намалювати корабель у його початковуому розташування
         self.screen.blit(self.image, self.rect)
+        # fdhfh
