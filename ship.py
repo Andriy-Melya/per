@@ -18,12 +18,13 @@ class Ship:
 
         # завантажуємо зображення корабля та задаємо його початкову позицію
 
-        self.image_without_fire = pygame.image.load('images/k.png')
-        self.image_with_fire = pygame.image.load('images/k1.png')
         self.image_image = pygame.image.load('images/ship.png')
         self.original_image = self.image_image
         self.image = self.original_image
         self.rect = self.image.get_rect()
+
+        self.image_fire = pygame.image.load('images/fire.py')
+        self.rect_fire = self.image_fire.get_rect()
 
         self.ship_hearts = self.settings.number_hearts
 
@@ -38,6 +39,9 @@ class Ship:
 
         self.direction = pygame.math.Vector2((0, -1))
         self.position = pygame.math.Vector2(self.rect.center)
+
+        self.direction_fire = self.direction
+        self.position_fire = self.position
 
         self.heart = pygame.image.load('images/heart.png')
         self.rect_heart = self.heart.get_rect()
@@ -84,6 +88,8 @@ class Ship:
         if self.moving:
             keys = pygame.key.get_pressed()
             self.move(0, - keys[pygame.K_UP])
+            self.rect_fire = self.rect
+            self.direction_fire = self.direction
 
 
     def draw_heart(self):
@@ -97,4 +103,5 @@ class Ship:
     def blitme(self):
         # намалювати корабель у його початковуому розташування
         self.screen.blit(self.image, self.rect)
-        # fdhfh
+        if self.moving:
+            self.screen.blit(self.image_fire,self.image_fire)
