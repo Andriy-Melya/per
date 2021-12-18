@@ -17,9 +17,11 @@ class Ship:
         self.screen_rect = game.screen.get_rect()
 
         # завантажуємо зображення корабля та задаємо його початкову позицію
+
         self.image_without_fire = pygame.image.load('images/k.png')
         self.image_with_fire = pygame.image.load('images/k1.png')
-        self.original_image = self.image_without_fire
+        self.image_image = pygame.image.load('images/ship.png')
+        self.original_image = self.image_image
         self.image = self.original_image
         self.rect = self.image.get_rect()
 
@@ -80,11 +82,8 @@ class Ship:
     def update(self):
         """ оновити поточну позицію корабля """
         if self.moving:
-            self.original_image = self.image_with_fire
             keys = pygame.key.get_pressed()
             self.move(0, - keys[pygame.K_UP])
-        else:
-            self.original_image = self.image_without_fire
 
 
     def draw_heart(self):
