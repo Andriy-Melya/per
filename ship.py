@@ -17,21 +17,23 @@ class Ship:
         self.screen_rect = game.screen.get_rect()
 
         # завантажуємо зображення корабля та задаємо його початкову позицію
-
         self.image_image = pygame.image.load('images/ship.png')
         self.original_image = self.image_image
         self.image = self.original_image
         self.rect = self.image.get_rect()
 
-        self.image_fire = pygame.image.load('images/fire.py')
-        self.rect_fire = self.image_fire.get_rect()
+        # завантажуємо зображення вогню та задаємо його початкову позицію ДОРОБИТИ
+        self.original_image_fire = pygame.image.load('images/fire.png')
+        self.image_fire = self.original_image_fire
+        self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
+        # self.rect_fire.midtop = self.rect.center
 
         self.ship_hearts = self.settings.number_hearts
 
         # створюємо кожен новий корабель внизу екрана, по центру
-        self.rect.center= self.screen_rect.center
+        self.rect.center = self.screen_rect.center
 
-        # зберегти десяткове значення ддля позиції
+        # зберегти десяткове значення для позиції
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
@@ -74,6 +76,10 @@ class Ship:
             self.image = pygame.transform.rotate(self.original_image, self.kyt)
             self.rect = self.image.get_rect(center=self.rect.center)
 
+            self.image_fire = pygame.transform.rotate(self.original_image_fire, self.kyt)
+            # self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
+            # self.rect_fire = self.rect
+
 
 
     def move(self, x, y):
@@ -82,14 +88,17 @@ class Ship:
         self.position -= pygame.math.Vector2(-self.direction.y, self.direction.x) * x * self.settings.ship_speed
         self.rect.center = round(self.position.x), round(self.position.y)
 
+        self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
+        # self.direction_fire = self.direction
 
     def update(self):
         """ оновити поточну позицію корабля """
         if self.moving:
             keys = pygame.key.get_pressed()
             self.move(0, - keys[pygame.K_UP])
-            self.rect_fire = self.rect
-            self.direction_fire = self.direction
+            # ----------------
+
+
 
 
     def draw_heart(self):
@@ -103,5 +112,6 @@ class Ship:
     def blitme(self):
         # намалювати корабель у його початковуому розташування
         self.screen.blit(self.image, self.rect)
-        if self.moving:
-            self.screen.blit(self.image_fire,self.image_fire)
+
+    def blitm_fire(self):
+        self.screen.blit(self.image_fire, self.rect_fire)

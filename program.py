@@ -117,8 +117,8 @@ class Program:
             self.settings.game_active = True
 
     def _create_asteroid(self):
-        k = random.randint(1,5)
-        if k!=5:
+        k = random.randint(1, 5)
+        if k != 5:
             asteroid = Asteroid(self)
             # задання його позиції та повороту
             asteroid.placing()
@@ -141,6 +141,8 @@ class Program:
         self.screen.fill(self.settings.bg_color)
 
         self.ship.blitme()
+        if self.ship.moving:
+            self.ship.blitm_fire()
 
         self.ship.draw_heart()
 
