@@ -77,7 +77,7 @@ class Ship:
             self.rect = self.image.get_rect(center=self.rect.center)
 
             self.image_fire = pygame.transform.rotate(self.original_image_fire, self.kyt)
-            # self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
+            self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
             # self.rect_fire = self.rect
 
 
@@ -89,7 +89,7 @@ class Ship:
         self.rect.center = round(self.position.x), round(self.position.y)
 
         self.rect_fire = self.image_fire.get_rect(center=self.rect.center)
-        # self.direction_fire = self.direction
+        #self.direction_fire = self.direction
 
     def update(self):
         """ оновити поточну позицію корабля """

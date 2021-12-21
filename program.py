@@ -101,7 +101,7 @@ class Program:
         t = pygame.time.get_ticks()
         if len(self.asteroids) < self.settings.asteroid_allower and t % 100 == 0:
             self._create_asteroid()
-        if t % 5000 == 0 and self.settings.print_green_wrench == False:
+        if t % 10000 == 0 and self.settings.print_green_wrench == False:
             self.green_wrench.position_green_wrench()
             self.settings.print_green_wrench = True
 
@@ -141,7 +141,7 @@ class Program:
         self.screen.fill(self.settings.bg_color)
 
         self.ship.blitme()
-        if self.ship.moving:
+        if self.ship.moving or self.ship.turn_left or self.ship.turn_right:
             self.ship.blitm_fire()
 
         self.ship.draw_heart()
