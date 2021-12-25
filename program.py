@@ -66,15 +66,16 @@ class Program:
         """ реагування на натискання клавіш та подій миші """
         # слідкування за подіями миші та клавіатури
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if not self.settings.game_active:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    self._check_play_button(mouse_pos)
+            elif event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         # реагування на  натиснення клавіш
@@ -144,7 +145,7 @@ class Program:
         self.screen.fill(self.settings.bg_color)
 
         self.ship.blitme()
-        if self.ship.moving or self.ship.turn_left or self.ship.turn_right:
+        if self.settings.game_active and (self.ship.moving or self.ship.turn_left or self.ship.turn_right):
             self.ship.blitm_fire()
 
         self.ship.draw_heart()
