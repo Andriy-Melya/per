@@ -46,7 +46,9 @@ class Program:
 
     def run_game(self):
         """ головний цикл гри """
+        clock = pygame.time.Clock()
         while True:
+            ms_frame = clock.tick(240)
             self._check_events()
 
             if self.settings.game_active:
@@ -118,14 +120,15 @@ class Program:
 
     def _create_asteroid(self):
         k = random.randint(1, 5)
+        o = random.randint(1, 3)
         if k != 5:
-            asteroid = Asteroid(self)
+            asteroid = Asteroid(self,1/o)
             # задання його позиції та повороту
             asteroid.placing()
             asteroid.point_at()
             self.asteroids.add(asteroid)
         else:
-            asteroid = Large_asteroid(self)
+            asteroid = Large_asteroid(self,1/o)
             # задання його позиції та повороту
             asteroid.placing()
             asteroid.point_at()
@@ -210,8 +213,8 @@ class Program:
         for asteroid in self.large_asteroids.sprites():
             if pygame.sprite.collide_mask(self.ship, asteroid):
                 self.large_asteroids.remove(asteroid)
-                if asteroid.xp ==1:
-                    self.settings.ship_hearts -= 1
+                if asteroid.xp == 1:
+                    self.ship .ship_hearts -= 1
                     # пауза
                     sleep(0.08)
                 else:

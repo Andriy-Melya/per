@@ -5,7 +5,7 @@ from pygame.sprite import Sprite
 
 class Large_asteroid(Sprite):
     # клас що представляє одного прибульця
-    def __init__(self, game):
+    def __init__(self, game, speed):
         super().__init__()
         self.screen = game.screen
         self.ship = game.ship
@@ -18,6 +18,7 @@ class Large_asteroid(Sprite):
 
         self.direction = pygame.math.Vector2((0, -1))
         self.position = self.rect.center
+        self.speed = speed
 
         self.xp = 2
 
@@ -51,7 +52,7 @@ class Large_asteroid(Sprite):
         self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
-        self.position += self.direction  * self.settings.asteroid_speed
+        self.position += self.direction  * self.speed
         #self.position -= pygame.math.Vector2(-self.direction.y, self.direction.x) * 0 * self.settings.asteroid_speed
         self.rect.center = round(self.position.x), round(self.position.y)
 
